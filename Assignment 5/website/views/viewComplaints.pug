@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Complaints
+  table
+    thead
+      tr
+        td Rating
+        td Complaint
+    tbody
+      each complaint in complaints
+        tr
+          td= complaint.rating
+          td= complaint.complaint

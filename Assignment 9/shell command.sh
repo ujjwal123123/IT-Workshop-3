@@ -1,0 +1,1 @@
+spark-submit --master local "part 3 spark.py"

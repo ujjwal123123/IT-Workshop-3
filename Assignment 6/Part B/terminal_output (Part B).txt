@@ -1,0 +1,61 @@
+[ec2-user@ip-172-31-82-96 website]$ sudo docker build . -t ass6attempt2
+Sending build context to Docker daemon  245.2kB
+Step 1/7 : FROM node:14
+14: Pulling from library/node
+af4c2580c6c3: Pull complete 
+4ea40d27a2cf: Pull complete 
+523d612e9cd2: Pull complete 
+8fee6a1847b0: Pull complete 
+60cce3519052: Pull complete 
+4bae1011637c: Pull complete 
+ecf48b6c1f43: Pull complete 
+856f69196742: Pull complete 
+e86a512b6f8c: Pull complete 
+Digest: sha256:167d0a4af6b4e0d0769086b871a36c25faed75b72705144cabbda70466cc0d8e
+Status: Downloaded newer image for node:14
+ ---> 8cf18d365a37
+Step 2/7 : WORKDIR /ass6ujjwal
+ ---> Running in ceff698a43e2
+Removing intermediate container ceff698a43e2
+ ---> 608b86a00833
+Step 3/7 : COPY package*.json ./
+ ---> 92e163a2dd1b
+Step 4/7 : RUN npm install
+ ---> Running in 1eadf6d0e1c9
+npm WARN read-shrinkwrap This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2. I'll try to do my best with it!
+added 321 packages from 230 contributors and audited 322 packages in 9.405s
+
+50 packages are looking for funding
+  run `npm fund` for details
+
+found 4 vulnerabilities (3 low, 1 critical)
+  run `npm audit fix` to fix them, or `npm audit` for details
+Removing intermediate container 1eadf6d0e1c9
+ ---> d9fdc776d029
+Step 5/7 : COPY . .
+ ---> 760d4312a437
+Step 6/7 : EXPOSE 8080
+ ---> Running in ad8779ff8e2d
+Removing intermediate container ad8779ff8e2d
+ ---> 839a38f78f9c
+Step 7/7 : CMD ["npm", "start"]
+ ---> Running in 34dd5d9a3fd6
+Removing intermediate container 34dd5d9a3fd6
+ ---> 8f67a2fef134
+Successfully built 8f67a2fef134
+Successfully tagged ass6attempt2:latest
+[ec2-user@ip-172-31-82-96 website]$ sudo docker images
+REPOSITORY     TAG       IMAGE ID       CREATED          SIZE
+ass6attempt2   latest    8f67a2fef134   20 seconds ago   975MB
+node           14        8cf18d365a37   6 days ago       944MB
+node           latest    9c23a8242f8b   7 days ago       908MB
+[ec2-user@ip-172-31-82-96 website]$ sudo docker run -p 80:8080 -d --name ass6container ass6attempt2
+f4342977dfd7bef3a619653b42a45ef9942c2a7032e19334072c17f311ed4b68
+[ec2-user@ip-172-31-82-96 website]$ sudo docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+f4342977dfd7   ass6attempt2   "docker-entrypoint.s…"   43 seconds ago   Up 43 seconds   0.0.0.0:80->8080/tcp, :::80->8080/tcp   ass6container
+e824ae475e10   node           "docker-entrypoint.s…"   8 hours ago      Up 8 hours                                              ass6
+[ec2-user@ip-172-31-82-96 website]$ sudo docker logs ass6container
+
+> application@1.0.0 start /ass6ujjwal
+> node ./bin/www

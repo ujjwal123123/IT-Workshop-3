@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Add complaint
+  form(action="/addComplaint", method="post") 
+    div
+      label Your Rating 
+      input(type="number", name="rating")
+    div 
+      label Complaint
+      input(type="text", name="complaint")
+    input(type="submit", value="Submit")

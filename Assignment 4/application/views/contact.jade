@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 Contact me
+
+  form(action="post")
+    input#(type="email", name="Email") Email
+    input#(type="password", name="") Message
+    input(type="submit", value="Submit")
